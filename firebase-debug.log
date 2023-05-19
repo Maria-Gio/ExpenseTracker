@@ -1,0 +1,13 @@
+[debug] [2023-05-19T11:46:55.169Z] ----------------------------------------------------------------------
+[debug] [2023-05-19T11:46:55.171Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\alvar\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js --debug emulators:start
+[debug] [2023-05-19T11:46:55.171Z] CLI Version:   12.0.1
+[debug] [2023-05-19T11:46:55.172Z] Platform:      win32
+[debug] [2023-05-19T11:46:55.172Z] Node Version:  v18.12.1
+[debug] [2023-05-19T11:46:55.173Z] Time:          Fri May 19 2023 13:46:55 GMT+0200 (hora de verano de Europa central)
+[debug] [2023-05-19T11:46:55.173Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-05-19T11:46:55.296Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-05-19T11:46:55.297Z] > authorizing via signed-in user (mariaisabelalvarezgio@gmail.com)
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[error] 
+[error] Error: No emulators to start, run firebase init emulators to get started.
