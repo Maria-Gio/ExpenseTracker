@@ -1,3 +1,6 @@
 export class Usuario {
-  constructor(public uid: string, public nombre: string, public email: string) { }
+  constructor(public uid: string | any,
+    public nombre: string | any,
+    public email: string | any
+  ) { }
 }

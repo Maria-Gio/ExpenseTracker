@@ -38,9 +38,12 @@ import { environment } from 'src/environments/environment';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    provideFirebaseApp(() => initializeApp( environment.firebase )),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireAuthModule,
+    // AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
