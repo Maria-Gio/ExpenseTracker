@@ -1,17 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { AppState } from 'src/app/app.reducer';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
-
+import * as ui from '../../shared/ui.actions';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: []
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registroForm: FormGroup;
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
+  uiSubscription: Subscription = new Subscription();
+  loading: boolean = false;
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router, private store: Store<AppState>) {
     this.registroForm = this.fb.group({});
   }
   ngOnInit() {
@@ -20,17 +25,27 @@ export class RegisterComponent implements OnInit {
       correo: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
+    this.uiSubscription = this.store.select('ui').subscribe(ui => {
+      this.loading = ui.isLoading
+
+    })
+  }
+  ngOnDestroy(): void {
+    this.uiSubscription.unsubscribe();
   }
   crearUsuario(): void {
     console.log(this.registroForm);
     if (this.registroForm.invalid) { return; }
     const { nombre, correo, password } = this.registroForm.value;
-    Swal.showLoading();
+    this.store.dispatch(ui.isLoading())
     this.auth.crearUsuario(nombre, correo, password).then(credenciales => {
       console.log(credenciales)
-      Swal.close();
+      this.store.dispatch(ui.stopLoading())
       this.router.navigate(['/']);
-    }).catch(err => Swal.fire("error en el registro", err.message, "error"))
+    }).catch(err => {
+      this.store.dispatch(ui.stopLoading())
+      Swal.fire("error en el registro", err.message, "error")
+    })
   }
 
 }
